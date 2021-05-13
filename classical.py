@@ -11,21 +11,10 @@ def gaussianpdf(mean, std):
 
 def classical_single_exact(meansep, std):
     '''
-    Numerical integration for the success probability of a single-shot Helstrom measurement
+    Returns the exact success probability of single shot Helstrom strategy from analytic integration
     '''
-
-    # Helstrom bound for no noise
-    if std == 0:
-        return 0.5 + 0.5 * np.sqrt(1 - np.cos(meansep)**2)
-
-    # Optimal Helstrom angle
-    alpha = np.pi/4 - meansep/2 
-
-    # Numerically integrate the success probability
-    def integrand(theta):
-        return 0.5 * gaussianpdf(0, std)(theta) * np.cos(alpha+theta)**2 + 0.5 * gaussianpdf(meansep, std)(theta) * np.sin(alpha+theta)**2
-    res = scipy.integrate.quad(integrand, -np.inf, np.inf)
-    return res[0]
+    alpha = np.pi/4 - meansep/2
+    return 0.25 * np.exp(-2 * std**2) * (2 * np.exp(2 * std**2) + np.cos(2 * alpha) - np.cos(2 * (alpha + meansep)))
 
 def classical_wrapper(x, y):
     '''
@@ -35,7 +24,7 @@ def classical_wrapper(x, y):
     return res
 
 if __name__ == "__main__":
-    name = "classical-exact"
+    name = "data/classical-exact"
     print("Starting " + name)
     data = generate_data(classical_wrapper, xmin=0.0, xmax=0.50001, dx = 0.001, dy = 0.001)
     np.savetxt(name + ".txt", data)

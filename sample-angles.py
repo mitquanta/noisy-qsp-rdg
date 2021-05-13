@@ -14,7 +14,7 @@ def qsp_wrapper(x, y):
 if __name__ == "__main__":
     
     n = 3
-    name = "qsp-%d" % n
+    name = "data/qsp-%d" % n
     print("Starting " + name);
 
     # Optimize QSP angles using medium number of trials
