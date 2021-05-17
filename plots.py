@@ -73,8 +73,8 @@ def rdg_plot(data, xmin = 0, ymin = 0, xmax = 0.5001, ymax = 0.5001, dx = 0.01, 
     y, x = np.mgrid[slice(ymin, ymax, dy), slice(xmin, xmax, dx)]
     plt.pcolormesh(x, y, data, cmap=colors, vmin=scalemin, vmax=scalemax)
     plt.colorbar(label=scalelabel)
-    plt.xlabel(r"Separation between means ($\pi$ radians)")
-    plt.ylabel(r"Standard deviation ($\pi$ radians)")
+    plt.xlabel(r"$\delta/\pi$")
+    plt.ylabel(r"$\sigma/\pi$")
     plt.title(title)
     if filename:
         plt.savefig(filename, bbox_inches="tight")
